@@ -1,0 +1,32 @@
+/* General styling for the table */
+body{
+    height: 100%;
+    padding: 5%;
+    background-color: black;
+}
+div{
+    display: grid;
+    place-content: center;
+}
+table {
+    width: 100%;
+    margin: 0 ;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  
+  /* Styling for table cells (td) */
+  td {
+    padding: 10px;
+    border: 2px solid #ddd;
+    background-color: rgb(0, 65, 0);
+  }
+  
+  /* Styling for the buttons */
+  input{
+    background-color: rgb(0, 65, 0);
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+  }
+  
