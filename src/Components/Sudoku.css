@@ -1,47 +1,121 @@
-/* General styling for the table */
-body{
+/* General styling */
+body {
     height: 100%;
     padding: 5%;
     background-color: black;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
 }
-div{
-    display: grid;
-    place-content: center;
+
+.sudoku-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: 20px;
 }
+
+/* Sidebar for difficulty & control buttons */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.control-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: 0.3s ease;
+}
+
+.easy {
+    background-color: #28a745;
+}
+.medium {
+    background-color: #ffc107;
+    color: black;
+}
+.hard {
+    background-color: #dc3545;
+}
+.clear {
+    background-color: #6c757d;
+}
+
+.control-btn:hover {
+    opacity: 0.85;
+}
+
+/* Sudoku board table */
 table {
-    width: 100%;
-    margin: 0 ;
     border-collapse: collapse;
     text-align: center;
-  }
-  
-  /* Styling for table cells (td) */
-  td {
+}
+
+td {
     width: 50px;
     height: 60px;
-    padding: 10px;
     border: 2px solid #ddd;
     background-color: rgb(0, 65, 0);
-  }
-  
-  /* Styling for the buttons */
-  input{
+}
+
+input {
     background-color: rgb(0, 65, 0);
     color: white;
-    font-size: 2rem;
-    border: none;
-    -moz-appearance: textfield; 
-  }
-  .invalid-board {
+    font-size: 1.8rem;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    border-top: none;
+    border-bottom: none;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+/* Chrome/Edge/Safari fix for input arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Highlight for invalid board */
+.invalid-board {
     border: 4px solid red;
-  }
-  .check-solution{
+}
+
+/* Check solution button */
+.check-solution {
     background-color: rgb(0, 65, 0);
-    width: 100px;
+    width: 120px;
     height: 50px;
     color: white;
     font-weight: bold;
-    border-radius: 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    border: none;
+    transition: 0.3s ease;
+}
 
-  }
-  
+.check-solution:hover {
+    background-color: darkgreen;
+}
+
+/* Message styling */
+.success-msg {
+    color: limegreen;
+    margin-top: 10px;
+}
+
+.error-msg {
+    color: crimson;
+    margin-top: 10px;
+}
