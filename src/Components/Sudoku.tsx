@@ -55,19 +55,62 @@ export default function Sudoku() {
     setIsSolutionValid(true);
   };
 
+  const solveSudoku = (b: number[][]): boolean => {
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (b[row][col] === 0) {
+          for (let num = 1; num <= 9; num++) {
+            if (isValidMove(b, row, col, num)) {
+              b[row][col] = num;
+              if (solveSudoku(b)) return true;
+              b[row][col] = 0;
+            }
+          }
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+
+  const handleSolve = () => {
+    const copy = board.map(row => [...row]);
+    if (solveSudoku(copy)) {
+      setBoard(copy);
+      setIsInvalidMove(false);
+      setIsSolutionValid(true);
+    }
+  };
+
+  const handleHint = () => {
+    const copy = board.map(row => [...row]);
+    const solved = board.map(row => [...row]);
+    if (solveSudoku(solved)) {
+      for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+          if (copy[row][col] === 0) {
+            copy[row][col] = solved[row][col];
+            setBoard(copy);
+            return;
+          }
+        }
+      }
+    }
+  };
+
   const loadEasyPuzzle = () => {
     setIsSolutionValid(null);
     setIsInvalidMove(false);
     setBoard([
       [1, 9, 6, 3, 2, 7, 8, 5, 4],
-  [5, 4, 7, 8, 0, 0, 2, 1, 3],
-  [2, 8, 3, 5, 1, 4, 7, 6, 9],
-  [9, 1, 4, 0, 0, 3, 6, 0, 5],
-  [0, 5, 2, 4, 0, 0, 9, 0, 0],
-  [6, 0, 8, 9, 5, 0, 4, 0, 0],
-  [4, 6, 9, 1, 3, 8, 5, 7, 2],
-  [8, 0, 1, 0, 4, 5, 3, 9, 6],
-  [0, 0, 5, 6, 0, 0, 1, 4, 8]
+      [5, 4, 7, 8, 0, 0, 2, 1, 3],
+      [2, 8, 3, 5, 1, 4, 7, 6, 9],
+      [9, 1, 4, 0, 0, 3, 6, 0, 5],
+      [0, 5, 2, 4, 0, 0, 9, 0, 0],
+      [6, 0, 8, 9, 5, 0, 4, 0, 0],
+      [4, 6, 9, 1, 3, 8, 5, 7, 2],
+      [8, 0, 1, 0, 4, 5, 3, 9, 6],
+      [0, 0, 5, 6, 0, 0, 1, 4, 8]
     ]);
   };
 
@@ -75,15 +118,15 @@ export default function Sudoku() {
     setIsSolutionValid(null);
     setIsInvalidMove(false);
     setBoard([
-  [3, 4, 5, 0, 0, 0, 0, 0, 8],
-  [6, 1, 0, 0, 8, 3, 5, 4, 9],
-  [7, 9, 0, 0, 4, 5, 0, 0, 6],
-  [0, 0, 0, 1, 5, 7, 0, 0, 0],
-  [0, 0, 0, 0, 6, 4, 9, 0, 0],
-  [0, 7, 1, 9, 0, 0, 4, 0, 0],
-  [0, 0, 9, 0, 2, 0, 6, 0, 4],
-  [0, 5, 0, 0, 1, 0, 0, 0, 0],
-  [2, 0, 6, 0, 0, 0, 3, 0, 0]
+      [3, 4, 5, 0, 0, 0, 0, 0, 8],
+      [6, 1, 0, 0, 8, 3, 5, 4, 9],
+      [7, 9, 0, 0, 4, 5, 0, 0, 6],
+      [0, 0, 0, 1, 5, 7, 0, 0, 0],
+      [0, 0, 0, 0, 6, 4, 9, 0, 0],
+      [0, 7, 1, 9, 0, 0, 4, 0, 0],
+      [0, 0, 9, 0, 2, 0, 6, 0, 4],
+      [0, 5, 0, 0, 1, 0, 0, 0, 0],
+      [2, 0, 6, 0, 0, 0, 3, 0, 0]
     ]);
   };
 
@@ -92,14 +135,14 @@ export default function Sudoku() {
     setIsInvalidMove(false);
     setBoard([
       [0, 0, 0, 8, 0, 0, 4, 2, 0],
-  [5, 0, 0, 6, 7, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 9, 0, 0, 5],
-  [7, 4, 0, 1, 0, 0, 0, 0, 0],
-  [0, 0, 9, 0, 3, 0, 7, 0, 0],
-  [0, 0, 0, 0, 0, 7, 0, 4, 8],
-  [8, 0, 0, 4, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 9, 8, 0, 0, 3],
-  [0, 9, 5, 0, 0, 3, 0, 0, 0]
+      [5, 0, 0, 6, 7, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 9, 0, 0, 5],
+      [7, 4, 0, 1, 0, 0, 0, 0, 0],
+      [0, 0, 9, 0, 3, 0, 7, 0, 0],
+      [0, 0, 0, 0, 0, 7, 0, 4, 8],
+      [8, 0, 0, 4, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 9, 8, 0, 0, 3],
+      [0, 9, 5, 0, 0, 3, 0, 0, 0]
     ]);
   };
 
@@ -111,15 +154,15 @@ export default function Sudoku() {
 
   return (
     <div className="sudoku-container">
-      {/* Sidebar with buttons */}
       <div className="sidebar">
         <button onClick={loadEasyPuzzle} className="control-btn easy">Easy</button>
         <button onClick={loadMediumPuzzle} className="control-btn medium">Medium</button>
         <button onClick={loadHardPuzzle} className="control-btn hard">Hard</button>
         <button onClick={clearBoard} className="control-btn clear">Clear</button>
+        <button onClick={handleSolve} className="control-btn solve">Solve</button>
+        <button onClick={handleHint} className="control-btn hint">Hint</button>
       </div>
 
-      {/* Sudoku board */}
       <div>
         <table className={isInvalidMove ? 'invalid-board' : ''}>
           <tbody>

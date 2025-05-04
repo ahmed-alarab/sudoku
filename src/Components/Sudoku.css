@@ -119,3 +119,10 @@ input::-webkit-inner-spin-button {
     color: crimson;
     margin-top: 10px;
 }
+.solve {
+    background-color: #007bff; /* Bootstrap Primary Blue */
+}
+
+.hint {
+    background-color: #17a2b8; /* Bootstrap Info Teal */
+}
