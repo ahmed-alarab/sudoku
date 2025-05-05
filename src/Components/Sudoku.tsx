@@ -225,14 +225,26 @@ if (rawText.length >= 81) {
               <tr key={rowIndex}>
                 {row.map((cell, colIndex) => (
                   <td key={`${rowIndex}-${colIndex}`}>
-                    <input
-                      type="number"
-                      min="1"
-                      max="9"
-                      value={cell === 0 ? '' : cell}
-                      onChange={(e) => handleInputChange(rowIndex, colIndex, e.target.value)}
-                    />
-                  </td>
+                  <input
+  type="text"
+  maxLength={1}
+  inputMode="numeric"
+  pattern="[1-9]"
+  value={cell === 0 ? '' : cell}
+  onChange={(e) => {
+    const val = e.target.value;
+    if (/^[1-9]?$/.test(val)) {
+      handleInputChange(rowIndex, colIndex, val);
+    }
+  }}
+  onKeyPress={(e) => {
+    if (!/[1-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  }}
+/>
+                </td>
+                
                 ))}
               </tr>
             ))}
